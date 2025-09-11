@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sign Up - Create Your Account</title>
+  <meta name="description" content="Create your account to get started with JoyDome"/>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#3B82F6',
+            'primary-foreground': '#FFFFFF',
+            background: '#F8FAFC',
+            foreground: '#1E293B',
+            muted: '#64748B',
+            'muted-foreground': '#94A3B8',
+            border: '#E2E8F0',
+            input: '#FFFFFF',
+            card: '#FFFFFF',
+            accent: '#F1F5F9',
+            secondary: '#E2E8F0',
+            'secondary-foreground': '#475569'
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    .toast {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: white;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 16px;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+      transform: translateX(100%);
+      transition: transform 0.3s ease;
+      z-index: 1000;
+      min-width: 300px;
+    }
+
+    .toast.show {
+      transform: translateX(0);
+    }
+
+    .toast-title {
+      font-weight: 600;
+      color: #1e293b;
+      margin-bottom: 4px;
+    }
+
+    .toast-description {
+      color: #64748b;
+      font-size: 14px;
+    }
+
+    .loading {
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    .role-button {
+      transition: all 0.2s ease;
+    }
+
+    .role-button:hover {
+      border-color: #3b82f6;
+      background-color: #f8fafc;
+    }
+
+    .role-button.selected {
+      border-color: #3b82f6;
+      background-color: #eff6ff;
+      color: #3b82f6;
+    }
+
+    .illustration {
+      background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+    }
+
+    .error-message {
+      color: #ef4444;
+      font-size: 12px;
+      margin-top: 4px;
+      display: none;
+    }
+
+    .error input {
+      border-color: #ef4444;
+    }
+
+    .error .error-message {
+      display: block;
+    }
+  </style>
+</head>
+
+<body class="min-h-screen bg-background">
+  <!-- Toast Container -->
+  <div id="toast-container"></div>
+
+  <!-- Header -->
+  <header class="flex items-center justify-between p-6 lg:p-8">
+    <div class="flex items-center space-x-2">
+      <div class="text-primary font-bold text-xl">
+        <span class="text-primary">✦</span>Joy Dome
+      </div>
+    </div>
+    <div class="flex items-center space-x-4">
+      <button 
+        onclick="handleLogin()"
+        class="px-4 py-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
+      >
+        Login
+      </button>
+      <button 
+        onclick="window.location.href='login.html'"
+        class="px-6 py-2 text-sm bg-primary hover:bg-blue-600 text-white rounded-lg transition-colors font-medium"
+      >
+        Sign Up
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="flex-1 px-6 lg:px-8 pb-12">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center min-h-[calc(100vh-200px)]">
+        <!-- Left Side - Illustration -->
+        <div class="hidden lg:flex items-center justify-center illustration rounded-2xl p-12">
+          <!-- Your illustration section remains unchanged -->
+          <div class="text-center">
+            <div class="mb-8">
+              <div class="w-32 h-32 bg-white rounded-2xl shadow-lg mx-auto mb-6 flex items-center justify-center">
+                <div class="text-4xl">📊</div>
+              </div>
+              <h3 class="text-xl font-semibold text-foreground mb-2">Join Our Marketplace</h3>
+              <p class="text-muted-foreground">Connect with buyers and sellers in our thriving community</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Side - Sign Up Form -->
+        <div class="w-full max-w-md mx-auto lg:mx-0">
+          <div class="text-center lg:text-left mb-8">
+            <h1 class="text-3xl font-bold text-foreground mb-3">Create Your Account</h1>
+            <p class="text-muted-foreground">Choose your role to get started.</p>
+          </div>
+
+          <form id="signupForm" class="space-y-6">
+            <!-- Role Selection -->
+            <div class="space-y-3">
+              <div class="grid grid-cols-2 gap-3">
+                <button
+                  type="button"
+                  id="buyerRole"
+                  onclick="window.location.href='signup.html'"
+                  class="role-button p-4 border-2 border-border rounded-xl text-center hover:border-primary transition-all"
+                >
+                  <div class="font-semibold text-foreground mb-1">Buyer</div>
+                  <div class="text-sm text-muted-foreground">I want to hire services</div>
+                </button>
+                <button
+                  type="button"
+                  id="sellerRole"
+                  onclick="window.location.href='signup.html'"
+                  class="role-button p-4 border-2 border-border rounded-xl text-center hover:border-primary transition-all"
+                >
+                  <div class="font-semibold text-foreground mb-1">Seller</div>
+                  <div class="text-sm text-muted-foreground">I want to offer services</div>
+                </button>
+              </div>
+              <div class="error-message" id="roleError">Please select a role</div>
+            </div>
+
+            <!-- Email Field -->
+            <div class="space-y-2">
+              <label for="email" class="block text-sm font-medium text-foreground">Email</label>
+              <div>
+                <input
+                  id="email"
+                  type="email"
+                  placeholder="you@example.com"
+                  class="w-full px-4 py-3 bg-input border border-border rounded-xl text-foreground placeholder-muted-foreground focus:ring-2 focus:ring-primary focus:border-primary transition-all"
+                  required
+                />
+                <div class="error-message" id="emailError"></div>
+              </div>
+            </div>
+
+            <!-- Password Field -->
+            <div class="space-y-2">
+              <label for="password" class="block text-sm font-medium text-foreground">Password</label>
+              <div>
+                <input
+                  id="password"
+                  type="password"
+                  placeholder="••••••••"
+                  class="w-full px-4 py-3 bg-input border border-border rounded-xl text-foreground placeholder-muted-foreground focus:ring-2 focus:ring-primary focus:border-primary transition-all"
+                  required
+                />
+                <div class="error-message" id="passwordError"></div>
+              </div>
+            </div>
+
+            <!-- Sign Up Button -->
+            <button 
+              type="submit"
+              class="w-full bg-primary hover:bg-blue-600 text-white font-semibold py-3 px-6 rounded-xl transition-all transform hover:scale-[1.02] active:scale-[0.98]"
+              id="signupButton"
+            >
+              Sign Up
+            </button>
+
+            <!-- Login Link -->
+            <div class="text-center">
+              <span class="text-sm text-muted-foreground">
+                Already have an account? 
+                <button
+                  type="button"
+                  onclick="window.location.href='login.html'"
+                  class="text-primary hover:underline font-medium"
+                >
+                  Log In
+                </button>
+              </span>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </main>
+  <!-- SCRIPT SECTION -->
+  <script>
+    let selectedRole = null;
+
+    function showToast(title, description) {
+      const toastContainer = document.getElementById('toast-container');
+      const toast = document.createElement('div');
+      toast.className = 'toast';
+      toast.innerHTML = `<div class="toast-title">${title}</div><div class="toast-description">${description}</div>`;
+      toastContainer.appendChild(toast);
+      setTimeout(() => toast.classList.add('show'), 100);
+      setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => toast.remove(), 300);
+      }, 3000);
+    }
+
+    function handleLogin() {
+      window.location.href = "login.html";
+    }
+
+    function validateEmail(email) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return emailRegex.test(email);
+    }
+
+    function validatePassword(password) {
+      return password.length >= 8;
+    }
+
+    function showFieldError(fieldName, message) {
+      const field = document.getElementById(fieldName);
+      const errorElement = document.getElementById(fieldName + 'Error');
+      if (field) field.parentElement.classList.add('error');
+      if (errorElement) errorElement.textContent = message;
+    }
+
+    function clearFieldError(fieldName) {
+      const field = document.getElementById(fieldName);
+      const errorElement = document.getElementById(fieldName + 'Error');
+      if (field) field.parentElement.classList.remove('error');
+      if (errorElement) errorElement.textContent = '';
+    }
+
+    document.getElementById('signupForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      const signupButton = document.getElementById('signupButton');
+
+      let isValid = true;
+      clearFieldError('email');
+      clearFieldError('password');
+
+      if (!email || !validateEmail(email)) {
+        showFieldError('email', 'Please enter a valid email address');
+        isValid = false;
+      }
+      if (!password || !validatePassword(password)) {
+        showFieldError('password', 'Password must be at least 8 characters');
+        isValid = false;
+      }
+
+      if (!isValid) {
+        showToast('Validation Error', 'Please fix the errors below');
+        return;
+      }
+
+      signupButton.textContent = 'Creating Account...';
+      signupButton.classList.add('loading');
+
+      setTimeout(() => {
+        signupButton.textContent = 'Sign Up';
+        signupButton.classList.remove('loading');
+        showToast('Account Created', `Welcome! Your account has been created successfully.`);
+        document.getElementById('signupForm').reset();
+        window.location.href = "dashboard.html";
+      }, 2000);
+    });
+  </script>
+</body>
+</htm
