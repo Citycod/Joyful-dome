@@ -2,7 +2,6 @@
 import { useNavigate } from "react-router-dom";
 import {
   Home,
-  MessageCircle,
   Briefcase,
   Settings,
   Search,
@@ -286,3 +285,4 @@ const SellersDashboard = () => {
 
 
 export default SellersDashboard;
+
