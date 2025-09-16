@@ -41,14 +41,14 @@ const Footer = () => {
               <li><Link to="/privacy-policy" className="hover:text-white transition">Privacy Policy</Link></li>
             </ul>
           </div>
-          <div>
+{/*           <div>
             <h4 className="font-semibold text-white mb-4">Contact</h4>
             <ul className="space-y-2 text-sm">
               <li>Email: oluwayinkaogunbodebiz@gmail.com</li>
               <li>Phone: +234 8140728174</li>
               <li>Lagos, Nigeria</li>
             </ul>
-          </div>
+          </div> */}
         </div>
         <div className="border-t border-gray-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
           <p className="text-gray-400 text-sm">© 2025 Joy <span className="text-primary-blue">Dome</span>. All rights reserved.</p>
@@ -64,5 +64,6 @@ const Footer = () => {
     </footer>
   )
 }
+
 
 export default Footer
