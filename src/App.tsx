@@ -8,7 +8,7 @@ import SearchResults from './pages/SearchResult'
 import ServiceDetails from './pages/ServiceDetails'
 import Categories from './pages/Categories'
 import About from './pages/About'
-import Contact from './pages/Contact'
+// import Contact from './pages/Contact'
 import FAQ from './pages/FAQ'
 import SignUp from './pages/Signup'
 import Login from './pages/Login'
@@ -39,7 +39,7 @@ function App() {
             <Route path="/service/:id" element={<ServiceDetails />} />
             <Route path="/categories" element={<Categories />} />
             <Route path="/about" element={<About />} />
-            <Route path="/contact" element={<Contact />} />
+{/*             <Route path="/contact" element={<Contact />} /> */}
             <Route path="/faq" element={<FAQ />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/login" element={<Login />} />
