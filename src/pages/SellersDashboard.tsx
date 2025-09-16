@@ -4,7 +4,6 @@ import {
   Home,
   Briefcase,
   Settings,
-  Search,
   Wallet,
   Plus,
   Star,
@@ -285,4 +284,5 @@ const SellersDashboard = () => {
 
 
 export default SellersDashboard;
+
 
