@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { useSearchParams, Link } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import ServiceCard from './ServiceCard';
 
 interface Service {
@@ -230,5 +230,6 @@ const SearchResults = () => {
     </div>
   );
 };
+
 
 export default SearchResults;
