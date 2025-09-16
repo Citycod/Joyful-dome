@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useParams, Link } from 'react-router-dom'
 import { useState, useEffect } from 'react'
-import { FiStar, FiHeart, FiClock, FiDollarSign, FiCheck, FiMessageCircle, FiMapPin, FiShield } from 'react-icons/fi'
+import { FiStar,  FiClock, FiDollarSign, FiCheck, FiMessageCircle, FiMapPin, FiShield } from 'react-icons/fi'
 
 interface Profile {
   id: string
@@ -356,5 +356,6 @@ const Profile = () => {
     </div>
   )
 }
+
 
 export default Profile
